@@ -1,0 +1,39 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+  <h1>
+    Product Catalogue
+  </h1>
+  {% if products %}
+    <table>
+      <tr>
+        <td>Name</td>
+        <td>Description</td>
+        <td>Tags</td>
+        <td>Quantity</td>
+        <td>Seller</td>
+        <td>Link</td>
+        <td>Add to cart</td>
+      </tr>
+
+      {% for i in products %}
+      <tr>
+        <td>{{ i.name }}</td>
+        <td>{{ i.description|truncatechars:10 }}</td>
+        <td>{{ i.tags|truncatewords:3 }}</td>
+        <td>{{ i.quantity }}</td>
+        <td>{{ i.seller.name }}</td>
+        <td><a href="catalog/{{i.pk}}">See more</a></td>
+        <td><a href="{% url 'add_to_cart' i.pk %}">Add</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>
+      No products
+    </p>
+  {% endif %}
+  {% if is_not_seller %}
+    <a href="{% url 'become_seller' %}">Become Seller!</a>
+  {% endif %}
+{% endblock %}

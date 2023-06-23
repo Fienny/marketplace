@@ -1,0 +1,28 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+  <h1>
+    Categories
+  </h1>
+  {% if categories %}
+    <table>
+      <tr>
+        <td>Name</td>
+      </tr>
+
+      {% for category in categories %}
+      <tr>
+        <td><a href="{% url 'category' category.pk %}">{{ category.name }}</a></td>
+      </tr>
+      {% endfor %}
+
+    </table>
+  {% else %}
+    <p>
+      No categories
+    </p>
+  {% endif %}
+
+
+
+{% endblock %}
